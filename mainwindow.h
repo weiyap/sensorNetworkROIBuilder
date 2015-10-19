@@ -6,6 +6,9 @@
 #include <QGraphicsView>
 #include <QGraphicsRectItem>
 #include <QGraphicsItem>
+#include "classes/graphicsscene.h"
+#include "classes/rectitem.h"
+#include "classes/ellipseitem.h"
 
 namespace Ui {
 class MainWindow;
@@ -20,11 +23,16 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_toolButton_clicked();
+    void on_insertRectButton_clicked();
+    void on_insertEllipseButton_clicked();
+
+    void on_unionButton_clicked();
+
+    void on_differenceButton_clicked();
 
 private:
     Ui::MainWindow *ui;
-    QGraphicsScene* myScene;
+    GraphicsScene* myScene;
 
 };
 

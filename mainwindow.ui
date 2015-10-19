@@ -52,9 +52,16 @@
        </property>
        <layout class="QFormLayout" name="formLayout">
         <item row="0" column="0">
-         <widget class="QToolButton" name="toolButton">
+         <widget class="QToolButton" name="insertRectButton">
           <property name="text">
            <string>Rect</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QToolButton" name="insertEllipseButton">
+          <property name="text">
+           <string>Ellipse</string>
           </property>
          </widget>
         </item>
@@ -64,8 +71,24 @@
      <item>
       <widget class="QGroupBox" name="groupBox_2">
        <property name="title">
-        <string>Parameters</string>
+        <string>Actions</string>
        </property>
+       <layout class="QFormLayout" name="formLayout_2">
+        <item row="0" column="0">
+         <widget class="QToolButton" name="unionButton">
+          <property name="text">
+           <string>Union</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QToolButton" name="differenceButton">
+          <property name="text">
+           <string>Diff</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
      </item>
     </layout>

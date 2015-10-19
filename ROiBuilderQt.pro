@@ -13,8 +13,14 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    classes/graphicsscene.cpp \
+    classes/rectitem.cpp \
+    classes/ellipseitem.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    classes/graphicsscene.h \
+    classes/rectitem.h \
+    classes/ellipseitem.h
 
 FORMS    += mainwindow.ui

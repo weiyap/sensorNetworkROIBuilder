@@ -6,9 +6,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    myScene = new QGraphicsScene(this);
+    myScene = new GraphicsScene(this);
     ui->graphicsView->setScene(myScene);
-    ui->graphicsView->setInteractive(true);
 }
 
 MainWindow::~MainWindow()
@@ -16,14 +15,70 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_toolButton_clicked()
+void MainWindow::on_insertRectButton_clicked()
 {
-    QRectF myRect(10,10,10,10);
-    QBrush myBrush(Qt::red);
-    QPen myPen(Qt::black);
-    myPen.setWidth(3);
-    QGraphicsRectItem* thisItem = myScene->addRect(myRect,myPen,myBrush);
-    thisItem->setFlag(QGraphicsItem::ItemIsMovable);
-    thisItem->setFlag(QGraphicsItem::ItemIsSelectable);
-    ui->graphicsView->fitInView(myScene->sceneRect(),Qt::KeepAspectRatio);
+    RectItem * myRect = new RectItem();
+    myRect->setRect(0,0,100,100);
+    myRect->setBrush(QBrush(Qt::red));
+    myScene->addItem(myRect);
+}
+
+void MainWindow::on_insertEllipseButton_clicked()
+{
+    EllipseItem * myEllipse = new EllipseItem();
+    myEllipse->setRect(0,0,100,100);
+    myEllipse->setBrush(QBrush(Qt::red));
+    myScene->addItem(myEllipse);
+}
+
+void MainWindow::on_unionButton_clicked()
+{
+    QList<QGraphicsItem * > selectedShapes;
+    selectedShapes = myScene->selectedItems();
+    QPainterPath myPainterPath;
+
+    if (selectedShapes.size() > 0)
+    {
+        myPainterPath.addPath(selectedShapes[0]->shape());
+        myPainterPath.translate(selectedShapes[0]->pos());
+        myScene->removeItem(selectedShapes[0]);
+        for (int i = 1; i < selectedShapes.size(); i++)
+        {
+            QPainterPath localPath = selectedShapes[i]->shape();
+            localPath.translate(selectedShapes[i]->pos());
+            myPainterPath = myPainterPath.united(localPath);
+            myScene->removeItem(selectedShapes[i]);
+        }
+
+        QGraphicsItem* myItem = myScene->addPath(myPainterPath);
+        myItem->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
+
+    }
+
+}
+
+void MainWindow::on_differenceButton_clicked()
+{
+
+    QList<QGraphicsItem * > selectedShapes;
+    selectedShapes = myScene->selectedItems();
+    QPainterPath myPainterPath;
+
+    if (selectedShapes.size() > 0)
+    {
+        myPainterPath.addPath(selectedShapes[0]->shape());
+        myPainterPath.translate(selectedShapes[0]->pos());
+        myScene->removeItem(selectedShapes[0]);
+        for (int i = 1; i < selectedShapes.size(); i++)
+        {
+            QPainterPath localPath = selectedShapes[i]->shape();
+            localPath.translate(selectedShapes[i]->pos());
+            myPainterPath = myPainterPath.subtracted(localPath);
+            myScene->removeItem(selectedShapes[i]);
+        }
+
+        QGraphicsItem* myItem = myScene->addPath(myPainterPath);
+        myItem->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
+
+    }
 }

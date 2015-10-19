@@ -43,8 +43,12 @@ public:
     QVBoxLayout *verticalLayout;
     QGroupBox *groupBox;
     QFormLayout *formLayout;
-    QToolButton *toolButton;
+    QToolButton *insertRectButton;
+    QToolButton *insertEllipseButton;
     QGroupBox *groupBox_2;
+    QFormLayout *formLayout_2;
+    QToolButton *unionButton;
+    QToolButton *differenceButton;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -87,16 +91,35 @@ public:
         formLayout->setSpacing(6);
         formLayout->setContentsMargins(11, 11, 11, 11);
         formLayout->setObjectName(QStringLiteral("formLayout"));
-        toolButton = new QToolButton(groupBox);
-        toolButton->setObjectName(QStringLiteral("toolButton"));
+        insertRectButton = new QToolButton(groupBox);
+        insertRectButton->setObjectName(QStringLiteral("insertRectButton"));
 
-        formLayout->setWidget(0, QFormLayout::LabelRole, toolButton);
+        formLayout->setWidget(0, QFormLayout::LabelRole, insertRectButton);
+
+        insertEllipseButton = new QToolButton(groupBox);
+        insertEllipseButton->setObjectName(QStringLiteral("insertEllipseButton"));
+
+        formLayout->setWidget(0, QFormLayout::FieldRole, insertEllipseButton);
 
 
         verticalLayout->addWidget(groupBox);
 
         groupBox_2 = new QGroupBox(dockWidgetContents);
         groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
+        formLayout_2 = new QFormLayout(groupBox_2);
+        formLayout_2->setSpacing(6);
+        formLayout_2->setContentsMargins(11, 11, 11, 11);
+        formLayout_2->setObjectName(QStringLiteral("formLayout_2"));
+        unionButton = new QToolButton(groupBox_2);
+        unionButton->setObjectName(QStringLiteral("unionButton"));
+
+        formLayout_2->setWidget(0, QFormLayout::LabelRole, unionButton);
+
+        differenceButton = new QToolButton(groupBox_2);
+        differenceButton->setObjectName(QStringLiteral("differenceButton"));
+
+        formLayout_2->setWidget(0, QFormLayout::FieldRole, differenceButton);
+
 
         verticalLayout->addWidget(groupBox_2);
 
@@ -112,8 +135,11 @@ public:
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
         groupBox->setTitle(QApplication::translate("MainWindow", "Basic Shapes", 0));
-        toolButton->setText(QApplication::translate("MainWindow", "Rect", 0));
-        groupBox_2->setTitle(QApplication::translate("MainWindow", "Parameters", 0));
+        insertRectButton->setText(QApplication::translate("MainWindow", "Rect", 0));
+        insertEllipseButton->setText(QApplication::translate("MainWindow", "Ellipse", 0));
+        groupBox_2->setTitle(QApplication::translate("MainWindow", "Actions", 0));
+        unionButton->setText(QApplication::translate("MainWindow", "Union", 0));
+        differenceButton->setText(QApplication::translate("MainWindow", "Diff", 0));
     } // retranslateUi
 
 };
